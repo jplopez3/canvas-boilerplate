@@ -15,7 +15,7 @@ let mouse = {
   y : 0
 } 
 //resizeCanvas
-alert("O bairrada é o maior");
+
 /* EVENTS */
 //mouse
 canvas.onmousemove = trackMousePosition;

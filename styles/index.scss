@@ -1,0 +1,19 @@
+/**
+ * index.scss
+ * - Add any styles you want here!
+ */
+
+html,body {
+  background: #247BA0;
+  display: block;
+  margin:0;
+  padding:0;
+}
+canvas{
+  display:block;
+  /*width:90%;
+  height:100%;*/
+  border: 3px solid #70C1B3;
+  margin: 30px  auto 0 auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

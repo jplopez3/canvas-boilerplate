@@ -5,40 +5,43 @@
 var lastTime = 0,
     elapsed = 0;
 var update = function (currentTime) {
-
+    
     elapsed = lastTime - currentTime;
     lastTime = currentTime;
     
-    ctx.fillStyle = "rgba(" + getRandomNumber(200, 250) + ", " + getRandomNumber(100, 255) + ", " + getRandomNumber(220, 255) + ", 0.1)";
+    ctx.fillStyle = conf.color0;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 
-    if (isMousePressed) {
+    if (mouse.isPressed) {
         ctx.font = '24px roboto';
         ctx.fillStyle = 'red';
         ctx.strokeText("x: "+ mouse.x +"y: "+mouse.y, mouse.x, mouse.y);
-
     }
-    /*if (isKeyPressed) {
-        if (pressedKeys['w']) {
-            player1.applyForce(up);
+    if (keyboard.isKeyPressed) {
+        if (keyboard.pressedKeys['w']) {
+            player1.applyForce(forces.up);
         }
-        if (pressedKeys['a']) {
+
+        if (keyboard.pressedKeys['a']) {
             player1.applyForce(left);
         }
-    }*/
+    }
 
     //Obstacles loop
-    for (var i = 0; i < ObstaclesCollection.length; i++) {
+    for (var i = 0; i < PlayersCollection.length; i++) {   
+        PlayersCollection[i].update();
+        PlayersCollection[i].applyForce(forces.gravity);
+    }
+    for (var i = 0; i < ballsCollection.length; i++) {   
+        if(ballsCollection[i].ttl < 0){
+            ballsCollection.splice(i, 1)
+        }else{
+            ballsCollection[i].update();
+        }
         
-        ObstaclesCollection[i].update();
+       // ballsCollection[i].applyForce(forces.gravity);
     }
 
     window.requestAnimationFrame(update);
 }
-
-
-
-
-
-//setUp();

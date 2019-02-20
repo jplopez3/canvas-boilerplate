@@ -8,15 +8,15 @@ class Keyboard {
       this.isKeyPressed = false;
       
     }
-    onKeyDown(event){
+    onKeyDown = (event) => {
       this.isKeyPressed = true;
       
       var key = keyMap[event.keyCode];
       this.pressedKeys[key] = true;
-      console.log(this.pressedKeys);
+
     }
-    onKeyUp(event){
-      this.isKeyPressed =isKeyPressed = false;
+    onKeyUp = (event) => {
+      this.isKeyPressed  = false;
       
       var key = keyMap[event.keyCode];
       this.pressedKeys[key] = false; 

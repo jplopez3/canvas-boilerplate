@@ -1,31 +1,13 @@
-var canvas = document.getElementsByTagName("canvas")[0];
-var ctx = canvas.getContext('2d');
-
 /* GLOBALS 
-* :TODO wrap? eg: g.mouse
+* :TODO wrap?
 */
+let canvas = document.getElementsByTagName("canvas")[0];
+let ctx = canvas.getContext('2d');
 const width = canvas.width;
 const height = canvas.height;
-let isMousePressed = false;
-let isKeyPressed = false;
-let pressedKey = null;
-//mouse position over canvas element
-let mouse = { 
-  x : 0,
-  y : 0
-} 
-//resizeCanvas
-
-/* EVENTS */
-//mouse
-canvas.onmousemove = trackMousePosition;
-window.onmousedown = onMouseDown;
-window.onmouseup = onMouseUp;
-//keys
-window.addEventListener( "keydown", onKeyDown, true);
-window.addEventListener( "keyup", onKeyUp, true);
-
-var keyMap = {
+const mouse = new Mouse();
+//Keyboard
+const keyMap = {
   39: 'right',
   37: 'left',
   38: 'up',
@@ -36,54 +18,43 @@ var keyMap = {
   87: 'w',
   83: 's'
 }
-var pressedKeys = {
-    left: false,
-    right: false,
-    up: false,
-    down: false,
-     
-    a: false,
-    d: false,
-    w: false,
-    s: false,
-  }
-function onKeyDown(e){
-  isKeyPressed = true;
-  pressedKeyCode = e.keyCode;
-  
-  var key = keyMap[pressedKeyCode];
-  pressedKeys[key] = true;
-}
-  
-function onKeyUp(e){
-  isKeyPressed = false;
-  pressedKeyCode = e.keyCode;
-  
-  var key = keyMap[pressedKeyCode];
-  pressedKeys[key] = false; 
-  
-   for (var key in pressedKeys) {
-        if (pressedKeys[key]){
-          isKeyPressed = true;
-          break;
-        } 
-    }
-}
-function trackMousePosition(event){
-  mouse.x = event.clientX - this.offsetLeft;
-  mouse.y = event.clientY - this.offsetTop;
-  //console.log(mouse);
-};
+const keyboard = new Keyboard(keyMap);
+//mouse position over canvas element
+/* EVENTS */
+//keys
+window.addEventListener( "keydown", keyboard.onKeyDown, true);
+window.addEventListener( "keyup", keyboard.onKeyUp, true);
+//mouse
+canvas.onmousemove = mouse.updatePosition;
+window.onmousedown = onMouseDown;
+window.onmouseup = onMouseUp;
+window.onresize = resizeCanvas;
 function onMouseDown(event){
-  isMousePressed = true;
+  mouse.isPressed = true;
 };
 function onMouseUp(event){
-  isMousePressed = false;
+  mouse.isPressed = false;
 };
+//END EVENTS
 
+
+//resizeCanvas
 function resizeCanvas(width, height){
   canvas.width = width;
   canvas.height = height;
   width = canvas.width;
   height = canvas.height;
-}
+};
+
+
+/*class canvas {
+  constructor(){
+    var canvas = document.getElementsByTagName("canvas")[0];
+    this.ctx = canvas.getContext('2d');
+    this.mouse = new Mouse();
+    this.keyboard = new Keyboard(keyMap);
+  }
+}*/
+
+
+

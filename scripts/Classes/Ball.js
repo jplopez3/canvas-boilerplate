@@ -1,16 +1,22 @@
 class Ball extends Shape{
   constructor(config){
     super(config);
+
     this.aceleration = new Vector(0, 0);
-    this.velocity = new Vector(0,0);
+    this.velocity = config.velocity || new Vector(0,0);
     this.mass = 100;
     this.r = config.radius;       //radius
     this.sAngle = config.sAngle;  //Start angle
     this.eAngle = config.eAngle;  //End angle
     this.cc = config.cc;          //counterclockwise
+    this.ttl = 250;
   }
-  update(){
 
+  /**
+   * Update ball object 
+   */
+  update(){
+    this.ttl--;
     this.velocity.sum(this.aceleration)
     this.position.sum(this.velocity);
     this.aceleration.mult(0);
@@ -18,11 +24,16 @@ class Ball extends Shape{
     
     this.draw();
   }
+  
+  /**
+   * Draw ball object after update
+   */
   draw(){
+
     this.ctx.beginPath(); 
     this.ctx.arc(this.position.x, this.position.y, this.size,  Math.PI * this.sAngle, Math.PI * this.eAngle);
     //fill background
-    this.ctx.fillStyle = this.background; // background
+    this.ctx.fillStyle = 'RGB(255,255, '+ this.ttl +')';//this.background; // background
     this.ctx.fill();
     
     //fill border
@@ -38,7 +49,9 @@ class Ball extends Shape{
     this.ctx.stroke();
     
   }
-  
+  /**
+   * Detect canvas bouderies and bounce
+   */
   bounce(){
     if(this.position.x + this.size >= width){
       this.velocity.x *= -1;

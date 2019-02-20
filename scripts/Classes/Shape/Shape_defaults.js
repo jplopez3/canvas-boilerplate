@@ -2,7 +2,7 @@ class ShapeConfig{
   constructor(){
     this.ctx = '',
     this.position = new Vector(0,0),
-      
+    //styling 
     this.background = '#003300',
     this.bgColor = 'rgb(0, 255, 0)',
     this.borderWidth = '1px',

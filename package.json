@@ -1,0 +1,16 @@
+{
+  "name": "Canvas",
+  "version": "1.0.0",
+  "description": "Canvas test",
+  "scripts": {
+    "serve": "gulp serve"
+  },
+  "author": "João López",
+  "license": "ISC",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "browser-sync": "^2.24.6"
+  }
+}

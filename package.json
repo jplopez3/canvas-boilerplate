@@ -9,7 +9,7 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "gulp": "4.0.0",
+    "gulp": "3.9.1",
     "browser-sync": "^2.24.6"
   }
 }

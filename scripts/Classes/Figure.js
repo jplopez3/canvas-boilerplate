@@ -1,5 +1,5 @@
 //https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images
-class Figure extends Shape {
+class Figure extends Ball {
     constructor(config) {
         super(config);
         this.sliceOpt = {
@@ -15,7 +15,7 @@ class Figure extends Shape {
         this.img.addEventListener('load', () => {
             // execute drawImage statements here
             this.update();
-            this.getPixel(1,1);
+           
         }, false);
         this.img.src = config.src;
     }
@@ -30,7 +30,7 @@ class Figure extends Shape {
 
     draw() {
         
-       ctx.drawImage(this.img, this.position.x, this.position.y, this.width, this.height,mouse.x, mouse.y, 200, 200);
+       ctx.drawImage(this.img, this.position.x, this.position.y, this.width, this.height );
     /*  ctx.drawImage(this.img,this.position.x, this.position.y, this.width,this.width, this.slice.top, this.slice.left, this.slice.width, this.slice.height);
       const imageData = ctx.createImageData(100, 100);
 
@@ -46,14 +46,14 @@ class Figure extends Shape {
         // Draw image data to the canvas
         ctx.putImageData(imageData, mouse.x, mouse.y);
 */
-        var imageData = ctx.getImageData(this.position.x, this.position.y, this.width, this.height);
+       /* var imageData = ctx.getImageData(this.position.x, this.position.y, this.width, this.height);
         var data = imageData.data;
         for (var i = 0; i < data.length; i += 4) {
             data[i]     = data[i];     // red
             data[i + 1] = data[i + 1]; // green
             data[i + 2] = data[i + 2]; // blue
           }
-          ctx.putImageData(imageData, 0, 0);
+          ctx.putImageData(imageData, 0, 0);*/
 }
 
     getPixel(x, y) {

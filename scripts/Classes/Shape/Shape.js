@@ -8,6 +8,8 @@ class Shape{
     
     //styling
     this.size =  config.width || 20;
+    this.width = config.width || 20;
+    this.height = config.height || 20;
     this.background = config.bgColor;
     this.borderWidth = config.borderWidth;
     this.borderColor = config.borderColor;

@@ -96,4 +96,4 @@ var GlobalConfig = function() {
 
   //END SETUP
   //startloop
-  window.requestAnimationFrame(update);
+  //window.requestAnimationFrame(update);

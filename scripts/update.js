@@ -2,20 +2,17 @@
 * Loop canvas 
 *
 */
-var lastTime = 0,
-    elapsed = 0;
-var update = function (currentTime) {
+var mainLoop = function (timestamp) {
     
-    elapsed = lastTime - currentTime;
-    lastTime = currentTime;
     
+    //clean canvas
     ctx.fillStyle = conf.color0;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-
+    //draw here
+    ctx.font = "30px Verdana";
+    ctx.strokeText(this.elapsed.toFixed(1), width - 80, 50);
     if (mouse.isPressed) {
-        ctx.font = '24px roboto';
-        ctx.fillStyle = 'red';
         ctx.strokeText("x: "+ mouse.x +"y: "+mouse.y, mouse.x, mouse.y);
     }
     if (keyboard.isKeyPressed) {
@@ -43,5 +40,59 @@ var update = function (currentTime) {
        // ballsCollection[i].applyForce(forces.gravity);
     }
 
-    window.requestAnimationFrame(update);
+    //window.requestAnimationFrame(update);
 }
+//https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+//https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
+class AnimationFrames {
+
+    constructor(loopFunction, autoStart = true){
+        this.running = true,
+        this.myReq;
+        this.lastFrameTimeMs = 0, // The last time the loop was run
+        this.elapsed = 0,
+        this.fps = 0;
+        this.maxFPS = 60;
+        this.loopFunction = loopFunction;
+
+        if (autoStart) this.start();
+    }
+
+    start(){
+        this.running = true;
+        this.run();
+    }
+    stop(){
+        this.running = false;
+        cancelAnimationFrame(this.myReq);
+      };
+    run(){
+       /* if (this.running){
+            requestAnimationFrame((timestamp) => {
+                if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {
+                    requestAnimationFrame(mainLoop);
+                    return;
+                }
+                this.loopFunction(timestamp);
+                this.run();
+            });
+        }  */
+       this.myReq = requestAnimationFrame((timestamp) => {
+            this.elapsed = timestamp - this.lastFrameTimeMs;
+            this.fps = 1000 / this.elapsed;
+             // Throttle the frame rate.
+            if(timestamp < this.lastFrameTimeMs + (1000 / this.maxFPS)){
+                this.run();
+                return;
+            }
+            this.lastFrameTimeMs = timestamp;
+
+            //run draw loop
+            this.loopFunction(timestamp);
+            
+            if (this.running) this.run();
+        });
+      };
+}
+
+const update = new AnimationFrames(mainLoop);

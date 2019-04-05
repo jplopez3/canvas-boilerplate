@@ -7,6 +7,8 @@ class Keyboard {
       }
       this.isKeyPressed = false;
       
+      window.addEventListener( "keydown", this.onKeyDown, true);
+      window.addEventListener( "keyup", this.onKeyUp, true);
     }
     onKeyDown = (event) => {
       this.isKeyPressed = true;

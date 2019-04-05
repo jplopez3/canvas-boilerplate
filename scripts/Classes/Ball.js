@@ -53,15 +53,15 @@ class Ball extends Shape{
    * Detect canvas bouderies and bounce
    */
   bounce(){
-    if(this.position.x + this.size >= width){
+    if(this.position.x + this.size >= this.ctx.canvas.clientWidth){
       this.velocity.x *= -1;
     }
     else if(this.position.x - this.size <= 0 ){
       this.velocity.x *= -1;
     }
-     if(this.position.y + this.size >= height){
+     if(this.position.y + this.size >= this.ctx.canvas.clientHeight){
       this.velocity.y *= -1;
-       this.position.y = height - this.size ;
+       this.position.y = this.ctx.canvas.clientHeight - this.size ;
     }
    else if(this.position.y - this.size <= 0 ){
       this.velocity.y *= -1;

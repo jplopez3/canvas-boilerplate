@@ -10,7 +10,7 @@ var getRandomNumber = function(min,max){
 }
 var getRandomColor = function(){
   var index = getRandomNumber(0, arrColors.length - 1);
-  console.log(arrColors[Math.round(index)]);
+  //console.log(arrColors[Math.round(index)]);
   return arrColors[Math.round(index)];
 } 
 function toHex(c) {
